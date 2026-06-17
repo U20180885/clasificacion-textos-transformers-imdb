@@ -4,7 +4,6 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer
 import torch.nn.functional as F
 
 # Cargar el tokenizer y el modelo guardados
-# Asegúrate de que la carpeta "modelo_distilbert_imdb" esté subida a tu repositorio de Hugging Face
 MODEL_PATH = "./modelo_distilbert_imdb" 
 
 tokenizer_demo = AutoTokenizer.from_pretrained(MODEL_PATH)
@@ -56,5 +55,5 @@ iface = gr.Interface(
     ]
 )
 
-# Lanzar la interfaz sin "share=True" para Hugging Face Spaces
+# Lanzar la interfaz sin "share=True"
 iface.launch()
