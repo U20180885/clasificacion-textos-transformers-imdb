@@ -2,7 +2,7 @@
 
 Proyecto final del curso **Deep Learning [1INF52]**.
 
-El objetivo del proyecto es desarrollar un clasificador binario de sentimientos capaz de identificar si una reseña de película en inglés expresa una polaridad **positiva** o **negativa**, utilizando modelos basados en Transformers y la plataforma Hugging Face.
+El objetivo del proyecto es desarrollar un clasificador binario de sentimientos capaz de identificar si una reseña de película en inglés expresa una polaridad **positiva** o **negativa**, utilizando modelos basados en Transformers y herramientas de Hugging Face.
 
 ## Integrantes
 
@@ -13,15 +13,17 @@ El objetivo del proyecto es desarrollar un clasificador binario de sentimientos 
 
 ## Dataset
 
-El dataset principal utilizado es **IMDb**, un corpus de reseñas de películas en inglés para clasificación binaria de sentimientos. Cada reseña está etiquetada como negativa o positiva.
+El dataset principal utilizado es **IMDb**, un corpus de reseñas de películas en inglés empleado para clasificación binaria de sentimientos. Cada reseña está etiquetada como negativa o positiva.
 
-Además, se considera **Amazon Polarity** como dataset complementario para evaluar la capacidad de generalización del modelo en un dominio textual distinto, compuesto por reseñas de productos.
+Además, se considera **Amazon Polarity** como dataset complementario para evaluar el comportamiento del modelo en un dominio textual distinto, compuesto por reseñas de productos.
 
 ## Modelo
 
-El modelo base utilizado es `distilbert-base-uncased`, una versión optimizada de BERT que reduce el costo computacional manteniendo un buen desempeño en tareas de comprensión de lenguaje.
+El modelo base utilizado es `distilbert-base-uncased`, una versión optimizada de BERT que reduce el costo computacional manteniendo un buen desempeño en tareas de comprensión de lenguaje natural.
 
 DistilBERT fue fine-tuneado sobre una submuestra del dataset IMDb para adaptar sus representaciones contextuales a la tarea de clasificación binaria de sentimientos.
+
+El repositorio incluye la carpeta `modelo_distilbert_imdb/`, que contiene el modelo fine-tuneado utilizado por la demo local.
 
 ## Pipeline implementado
 
@@ -72,14 +74,15 @@ La aplicación permite ingresar una reseña de película en inglés y devuelve l
 clasificacion-textos-transformers-imdb/
 ├── README.md
 ├── requirements.txt
+├── .gitattributes
 ├── .gitignore
+├── modelo_distilbert_imdb/
 ├── notebooks/
 │   └── 02_finetuning_distilbert_imdb_v3.ipynb
 ├── demo/
 │   ├── app.py
 │   └── requirements.txt
 ├── results/
-│   ├── matriz_confusion_imdb.png
 │   └── metricas_resultados.md
 └── docs/
     └── capturas_demo/
@@ -89,7 +92,7 @@ clasificacion-textos-transformers-imdb/
 
 Para ejecutar el notebook de fine-tuning, se recomienda usar Google Colab con GPU habilitada.
 
-1. Instalar las dependencias:
+1. Instalar las dependencias principales:
 
 ```bash
 pip install -r requirements.txt
@@ -107,15 +110,22 @@ El notebook descarga el dataset desde Hugging Face, tokeniza los textos, realiza
 
 ## Ejecución local de la demo
 
-La demo puede ejecutarse localmente con Gradio si se cuenta con la carpeta del modelo fine-tuneado generada por el notebook.
+La demo puede ejecutarse localmente con Gradio usando la carpeta `modelo_distilbert_imdb/` incluida en el repositorio.
+
+Desde la raíz del repositorio, ejecutar:
 
 ```bash
-cd demo
-pip install -r requirements.txt
-python app.py
+pip install -r demo/requirements.txt
+python demo/app.py
 ```
 
-En caso de no contar con los pesos del modelo de forma local, se recomienda usar directamente la demo publicada en Hugging Face Spaces.
+Es importante ejecutar `python demo/app.py` desde la raíz del repositorio, porque el archivo `demo/app.py` carga el modelo desde la ruta:
+
+```text
+./modelo_distilbert_imdb
+```
+
+También puede usarse directamente la demo publicada en Hugging Face Spaces.
 
 ## Limitaciones
 
